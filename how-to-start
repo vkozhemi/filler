@@ -1,0 +1,1 @@
+./filler_vm -f maps/map01 -p2 players/carli.filler -p1 ./vkozhemi.filler | src_vis/vkozhemi.visual
