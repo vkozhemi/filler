@@ -12,35 +12,36 @@
 
 #include "../includes/filler.h"
 
-void	ft_get_map_size(t_m *m, char *line)
+void	ft_get_size_allocate_map(t_m *m)
 {
-	int	i;
+	int		i;
+	int		j;
+	int		k;
+	char	*line;
 
 	i = 8;
+	get_next_line(0, &line);
 	m->m_size_y = ft_my_atoi(line, &i);
 	m->m_size_x = ft_my_atoi(line, &i);
-}
-
-void	ft_allocate_map(t_m *m)
-{
-	int i;
-
-	i = -1;
+	free(line);
+	j = -1;
 	m->m = (char **)malloc(sizeof(char *) * (m->m_size_y + 1));
-	while (++i < m->m_size_y)
-		m->m[i] = (char*)malloc(sizeof(char) * (m->m_size_x + 1));
+	while (++j < m->m_size_y)
+		m->m[j] = (char*)malloc(sizeof(char) * (m->m_size_x + 1));
 	m->md = ft_memalloc(sizeof(int **) * m->m_size_y);
-	i = -1;
-	while (++i < m->m_size_y)
-		m->md[i] = ft_memalloc(sizeof(int *) * m->m_size_x);
+	k = -1;
+	while (++k < m->m_size_y)
+		m->md[k] = ft_memalloc(sizeof(int *) * m->m_size_x);
 }
 
-void	ft_save_map(t_m *m, char *line)
+void	ft_save_map(t_m *m)
 {
-	int i;
+	int		i;
+	char	*line;
 
 	i = -1;
 	get_next_line(0, &line);
+	free(line);
 	while (++i < m->m_size_y && get_next_line(0, &line))
 	{
 		ft_strcpy(m->m[i], line + 4);
@@ -69,4 +70,13 @@ void	ft_count_x_o(t_m *m)
 		}
 		j++;
 	}
+}
+
+void	ft_find_player(t_p *p)
+{
+	char *line;
+
+	get_next_line(0, &line);
+	p->pl = ft_atoi(line + 10);
+	free(line);
 }

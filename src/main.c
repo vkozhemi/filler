@@ -18,14 +18,20 @@ void	ft_get_map_piece(t_m *m, t_p *p)
 	int		i;
 
 	line = NULL;
-	ft_save_map(m, line);
+	if (m->flag > 0)
+	{
+		get_next_line(0, &line);
+		free(line);
+	}
+	ft_save_map(m);
 	get_next_line(0, &line);
 	if (ft_strncmp(line, "Piece", 4) == 0)
 	{
 		i = 5;
 		p->p_size_y = ft_my_atoi(line, &i);
 		p->p_size_x = ft_my_atoi(line, &i);
-		ft_save_piece(p, line);
+		free(line);
+		ft_save_piece(p);
 	}
 	ft_count_x_o(m);
 	ft_find_coord_x_o(m, p, 0, 0);
@@ -110,22 +116,15 @@ int		main(void)
 {
 	t_m		*m;
 	t_p		*p;
-	char	*line;
 
 	m = (t_m*)malloc(sizeof(*m));
 	p = (t_p*)malloc(sizeof(*p));
-	get_next_line(0, &line);
-	p->pl = ft_atoi(line + 10);
-	m->flag = 0;
+	ft_find_player(p);
+	m->flag = -1;
 	while (1)
 	{
-		get_next_line(0, &line);
-		if (!m->flag)
-		{
-			ft_get_map_size(m, line);
-			ft_allocate_map(m);
-			m->flag = 1;
-		}
+		if (++m->flag == 0)
+			ft_get_size_allocate_map(m);
 		ft_get_map_piece(m, p);
 		ft_check_all_place(m, p, -1, 0);
 		ft_printf("%d %d\n", m->tmp_j - p->j_min, m->tmp_i - p->i_min);

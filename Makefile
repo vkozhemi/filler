@@ -5,7 +5,7 @@ SRC_DIR := ./src/
 OBJ_DIR := ./objects/
 INC_DIR := ./includes/
 
-SRCS := main.c ft_get_map_piece.c ft_check_all_place.c ft_allocate_map.c
+SRCS := main.c ft_get_map_piece.c ft_check_all_place.c ft_allocate_map.c 
 OBJ = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
 CC := gcc
@@ -20,7 +20,7 @@ HDR_FLAGS := -I $(LIBFT_INC) -I $(INC_DIR)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	@ $(CC) $(OBJ) $(FLAGS) $(HDR_FLAGS) -o $(NAME) $(LIBFT)
+	@ $(CC) $(OBJ) $(FLAGS) $(HDR_FLAGS) -o $(NAME) $(LIBFT) -fsanitize=address
 
 $(OBJ): | $(OBJ_DIR)
 

@@ -14,8 +14,8 @@
 
 void	ft_save_map(t_w *w)
 {
-	int i;
-	char *line;
+	int		i;
+	char	*line;
 
 	i = -1;
 	paint(w);
@@ -24,6 +24,8 @@ void	ft_save_map(t_w *w)
 		ft_strcpy(w->m[i], line + 4);
 		free(line);
 	}
+	ft_count_x_o(w);
+	mlx_hook(w->win_ptr, 2, 5, hadle_imput_key, w);
 }
 
 void	ft_count_x_o(t_w *w)
@@ -75,19 +77,17 @@ int		paint(t_w *w)
 	while (++y < w->y && (x = -1))
 		while (++x < w->x)
 			pixel(x, y, w);
-	// if (len_o)
-	// 	free(len_o);
-	// if (len_x)
-	// 	free(len_x);
-	len_o = ft_itoa(w->len_o);
-	len_x = ft_itoa(w->len_x);
-	mlx_string_put(w->mlx_ptr, w->win_ptr, 50, 50, 0x33FFFF, "HELP");
-	mlx_string_put(w->mlx_ptr, w->win_ptr, 50, 100, 0x33FFFF, "exit: esc");
-	mlx_string_put(w->mlx_ptr, w->win_ptr, 50, 125, 0x33FFFF, "color: 1");
+	len_o = ft_itoa_base(w->len_o, 10, 0);
+	len_x = ft_itoa_base(w->len_x, 10, 0);
+	mlx_string_put(w->mlx_ptr, w->win_ptr, 50, 50, 0xff0000, "HELP");
+	mlx_string_put(w->mlx_ptr, w->win_ptr, 50, 100, 0x0000FF, "exit: esc");
+	mlx_string_put(w->mlx_ptr, w->win_ptr, 50, 125, 0x0000FF, "color: 1");
 	mlx_string_put(w->mlx_ptr, w->win_ptr, 50, 1050, w->col1, w->play1);
 	mlx_string_put(w->mlx_ptr, w->win_ptr, 300, 1050, w->col1, len_o);
 	mlx_string_put(w->mlx_ptr, w->win_ptr, 50, 1100, w->col2, w->play2);
 	mlx_string_put(w->mlx_ptr, w->win_ptr, 300, 1100, w->col2, len_x);
+	free(len_o);
+	free(len_x);
 	mlx_do_sync(w->mlx_ptr);
 	return (1);
 }

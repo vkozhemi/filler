@@ -67,9 +67,10 @@ void	ft_find_coord_stars(t_p *p)
 	}
 }
 
-void	ft_save_piece(t_p *p, char *line)
+void	ft_save_piece(t_p *p)
 {
-	int j;
+	int		j;
+	char	*line;
 
 	j = 0;
 	p->p = (char **)malloc(sizeof(char *) * (p->p_size_y + 1));

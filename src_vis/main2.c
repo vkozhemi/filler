@@ -51,7 +51,6 @@ void	pixel(int x, int y, t_w *w)
 void	window(t_w *w)
 {
 	int		i;
-	int		j;
 	char	*line;
 
 	i = 8;
@@ -66,13 +65,12 @@ void	window(t_w *w)
 	w->mlx_ptr = mlx_init();
 	w->win_ptr = mlx_new_window(w->mlx_ptr, WIDTH, HEIGHT, "vkozhemi.filler");
 	w->k = fmin(WIDTH / (w->y + 1), HEIGHT / (w->x + 1));
-	// paint(w);
 }
 
-void	ft_find_player(t_w *w)
+void	find_player(t_w *w)
 {
-	int i;
-	char *line;
+	int		i;
+	char	*line;
 
 	i = 6;
 	while (i--)
@@ -94,23 +92,19 @@ void	ft_find_player(t_w *w)
 	w->col2 = 0xff0000;
 	w->col11 = 0x14FFEA;
 	w->col22 = 0xFFD214;
+	window(w);
 }
 
-int		main(int argc, char **argv)
+int		main(void)
 {
-	char		*line;
-	t_w			*w;
+	char	*line;
+	t_w		*w;
+	int		gnl;
 
 	w = malloc(sizeof(t_w));
-	ft_find_player(w);
-	window(w);
+	find_player(w);
 	while (get_next_line(0, &line) > 0)
 	{
-		if (ft_strstr(line, "== X fin"))
-		{
-			free(line);
-			exit(1);
-		}
 		if (ft_strstr(line, "Plateau"))
 		{
 			free(line);
@@ -118,16 +112,14 @@ int		main(int argc, char **argv)
 			free(line);
 		}
 		ft_save_map(w);
-		ft_count_x_o(w);
-		mlx_hook(w->win_ptr, 2, 5, hadle_imput_key, w);
 		free(line);
-		while (get_next_line(0, &line) > 0 && !ft_strstr(line, "Plateau"))
+		while ((gnl = get_next_line(0, &line)) > 0 && !ft_strstr(line, "Plat"))
 			free(line);
-		
+		if (gnl > 0)
+			free(line);
 	}
 	mlx_loop_hook(w->mlx_ptr, paint, w);
 	mlx_loop(w->mlx_ptr);
 	free(w);
-	
 	return (0);
 }

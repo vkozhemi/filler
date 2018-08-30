@@ -9,7 +9,7 @@ SRCS := main2.c save_map.c
 OBJ = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
 CC := gcc
-FLAGS := -g -lmlx -framework OpenGL -framework AppKit 
+FLAGS :=  -g -Wall -Wextra -Werror
 
 LIBFT = $(LIB_DIR)libftprintf.a
 LIBFT_FLAGS := -L $(LIB_DIR) -lft
@@ -20,7 +20,7 @@ HDR_FLAGS := -I $(LIBFT_INC) -I $(INC_DIR)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	@ $(CC) $(OBJ) $(FLAGS) $(HDR_FLAGS) -o $(NAME) $(LIBFT) -fsanitize=address
+	@ $(CC) $(OBJ) $(FLAGS) $(HDR_FLAGS) -o $(NAME) $(LIBFT) -lmlx -framework OpenGL -framework AppKit
 
 $(OBJ): | $(OBJ_DIR)
 

@@ -42,7 +42,7 @@ typedef struct		s_w
 	unsigned int	col22;
 }					t_w;
 
-void				ft_find_player(t_w *w);
+void				find_player(t_w *w);
 void				window(t_w *w);
 void				pixel(int x, int y, t_w *w);
 int					center(int n, char c, t_w *w);
