@@ -46,3 +46,8 @@ Visualizer mode :
 Example from the root folder : 
 `./filler_vm -f maps/map02 -p1 ./vkozhemi.filler -p2 players/superjeannot.filler | ./src_vis/vkozhemi.visual`
 
+
+
+![Image alt](https://github.com/vkozhemi/filler/raw/master/img/1.png)
+![Image alt](https://github.com/vkozhemi/filler/raw/master/img/2.png)
+![Image alt](https://github.com/vkozhemi/filler/raw/master/img/3.gif)
